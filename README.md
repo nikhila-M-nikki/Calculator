@@ -1,4 +1,4 @@
-# 🧮 Python Calculator
+#  Python Calculator
 
 ## About the Project
 This is a simple calculator application developed using Python. It performs basic arithmetic operations with a simple and user-friendly interface.
