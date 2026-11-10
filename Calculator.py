@@ -11,12 +11,42 @@ frame.pack(expand=True, fill='both', padx=5, pady=5)
 entry = Entry(frame, relief=SUNKEN, borderwidth=3, width=47,justify='right', font=("Arial", 20))
 entry.grid(row=0, column=0,columnspan=4,  ipady=20, pady=6, sticky="nsew")
 
+
+
 def click(num):
 
-    if num =='C':
+    current = entry.get()
+    num = str(num)
+
+    if num == 'C':
         entry.delete(0, END)
+
+    elif num in '+-*/':
+
+        if current == '':
+            if num == '-':
+                entry.insert(END, num)
+            return
+
+        last = current[-1]
+
+        if last in '+-*/':
+
+            # Allow negative numbers after * or /
+            if num == '-' and last in '*/':
+                entry.insert(END, num)
+
+            # Replace the previous operator
+            elif last != '-' or num != '-':
+                entry.delete(len(current)-1, END)
+                entry.insert(END, num)
+
+        else:
+            entry.insert(END, num)
+
     else:
         entry.insert(END, num)
+
 
 
 def equal():
@@ -25,7 +55,10 @@ def equal():
       entry.delete(0, END)
       entry.insert(0, res)
     except:
-        tkinter.messagebox.showerror("Error", "Error")
+        (tkinter.messagebox.showerror
+            (
+            "Error", "Invalid calculation"
+        ))
 button=[
 
     (1, 1, 0), (2, 1, 1), (3, 1, 2), ('C', 1, 3),
